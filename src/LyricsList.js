@@ -1,58 +1,62 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
+import { styled } from "@mui/material/styles";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
 
-const LyricsList = ({ lyrics, currentPage, totalPages, onPageChange }) => {
-  const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      onPageChange(currentPage + 1);
-    }
-  };
+const LyricsListContainer = styled("div")(({ theme }) => ({
+  marginTop: "20px",
+}));
 
-  const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      onPageChange(currentPage - 1);
-    }
-  };
+const LyricsLink = styled(Link)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "flex-start",
+  marginBottom: "20px",
+  padding: "20px",
+  borderRadius: "8px",
+  textDecoration: "none",
+  transition: "background-color 0.3s ease",
+  boxShadow: theme.shadows[3],
+  backgroundColor: theme.palette.background.paper,
+  "&:hover": {
+    backgroundColor: theme.palette.action.hover,
+  },
+}));
 
-  const handlePageClick = (pageNumber) => {
-    onPageChange(pageNumber);
-  };
+const LyricsTitle = styled(Typography)({
+  marginBottom: "10px",
+  fontSize: "24px",
+  color: "inherit",
+});
 
+const LyricsTags = styled(Typography)({
+  marginTop: "5px",
+  fontSize: "14px",
+  color: ({ theme }) => theme.palette.text.secondary,
+});
+
+const LyricsList = ({ lyrics }) => {
   return (
-    <div className="lyrics-list-container">
-      <h2 className="lyrics-list-heading">Filtered Lyrics:</h2>
+    <LyricsListContainer>
+      <Typography
+        variant="h4"
+        component="h2"
+        style={{ marginBottom: "20px" }}
+      >
+        Filtered Lyrics:
+      </Typography>
       {lyrics.map((lyric) => (
-        <div className="lyrics-item" key={lyric.id}>
-          <Link to={`/lyrics/${lyric.id}`} className="lyrics-link">
-            <h3 className="lyrics-title">{lyric.title}</h3>
-          </Link>
-          <p className="lyrics-artist">Artist: {lyric.artist}</p>
-          <p className="lyrics-tags">Tags: {lyric.tags.join(', ')}</p>
-        </div>
+        <LyricsLink to={`/lyric/${lyric.id}`} key={lyric.id}>
+          <div>
+            <LyricsTitle variant="h5" component="h3">
+              {lyric.title}
+            </LyricsTitle>
+            <LyricsTags>Tags: {lyric.tags.join(", ")}</LyricsTags>
+          </div>
+        </LyricsLink>
       ))}
-
-      <div className="pagination-buttons">
-        {currentPage > 1 && (
-          <button onClick={handlePreviousPage} className="pagination-button">
-            Previous
-          </button>
-        )}
-        {Array.from({ length: totalPages }, (_, index) => index + 1).map((pageNumber) => (
-          <button
-            key={pageNumber}
-            onClick={() => handlePageClick(pageNumber)}
-            className={`pagination-button ${currentPage === pageNumber ? 'active' : ''}`}
-          >
-            {pageNumber}
-          </button>
-        ))}
-        {currentPage < totalPages && (
-          <button onClick={handleNextPage} className="pagination-button">
-            Next
-          </button>
-        )}
-      </div>
-    </div>
+    </LyricsListContainer>
   );
 };
 

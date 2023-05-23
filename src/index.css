@@ -10,13 +10,16 @@ body {
 .app-container {
   background-color: #f2f2f2;
   min-height: 100vh;
-  padding: 20px;
+  padding: 4%;
+  margin: 0 auto;
 }
 
 .app-title {
   color: #333;
-  font-size: 24px;
+  font-size: 44px;
   text-align: center;
+  text-decoration: none;
+  margin-top: 0px;
   margin-bottom: 20px;
 }
 
@@ -39,7 +42,7 @@ body {
   background-color: #333;
   color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 40px;
   cursor: pointer;
 }
 
@@ -89,23 +92,114 @@ body {
   color: #fff;
 }
 
-
-
-.app-container {
-  padding: 20px;
-}
-
-.app-title {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
+/* Additional styles */
 
 .search-bar {
   margin-bottom: 10px;
 }
 
 .search-input {
-  padding: 5px;
+  padding: 8px;
   border-radius: 4px;
-  border: 1px solid gray;
+  border: 1px solid #ccc;
+  width: 100%;
+  font-size: 16px;
 }
+
+.search-input:focus {
+  outline: none;
+  border-color: #555;
+}
+
+.lyrics-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lyrics-item {
+  width: 100%;
+  padding: 16px;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.lyrics-item:hover {
+  background-color: #f2f2f2;
+}
+
+.lyrics-link {
+  color: #333;
+  font-weight: bold;
+}
+
+.lyrics-artist {
+  color: #888;
+}
+
+.lyrics-tags {
+  color: #666;
+}
+
+.lyrics-title {
+  margin-top: 0;
+  margin-bottom: 4px;
+  font-size: 20px;
+}
+
+.no-songs-found {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #888;
+  text-align: center;
+}
+
+/* Media Queries */
+
+@media (min-width: 768px) {
+  .app-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .search-input {
+    width: 80%;
+  }
+}
+button.tag {
+  border-radius: 40px;
+}
+
+a.text-xl.text-blue-500.font-semibold {
+  text-decoration: none;
+}
+
+div.lyrics-page {
+  background-color: #fff;
+  margin: 2%;
+  padding: 4%;
+}
+/* CSS styles for the search bar container */
+.search-bar {
+  position: relative;
+  z-index: 1;
+  background-color: #fff;
+  transition: top 0.3s ease-in-out;
+}
+
+.search-bar-scrolled {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* CSS styles for the rest of the app */
+.app-container {
+  margin-top: 40px; /* Adjust the margin top to accommodate the fixed search bar */
+}
+
+/* ... */
