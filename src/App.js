@@ -12,6 +12,7 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import Fab from "@mui/material/Fab";
+import MenuIcon from "@mui/icons-material/Menu";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
 import {
@@ -148,7 +149,9 @@ const ArtistSongsPage = ({}) => {
 
   const handleTagSelect = (tag) => {
     if (selectedTags.includes(tag)) {
-      setSelectedTags(selectedTags.filter((selectedTag) => selectedTag !== tag));
+      setSelectedTags(
+        selectedTags.filter((selectedTag) => selectedTag !== tag)
+      );
     } else {
       setSelectedTags([...selectedTags, tag]);
     }
@@ -162,80 +165,83 @@ const ArtistSongsPage = ({}) => {
 
   return (
     <div className="artist-songs-page">
-    <Box sx={{ flexGrow: 1 }}>
-    <AppBar position="fixed">
-      <Toolbar>
-        <IconButton
-          size="large"
-          edge="start"
-          color="inherit"
-          aria-label="open drawer"
-          sx={{ mr: 0 }}
-        >
-          {/* <MenuIcon /> */}
-        </IconButton>
-        <Typography
-          variant="h6"
-          noWrap
-          component="div"
-          color="white"
-          sx={{
-            flexGrow: 1,
-            display: { xs: "block", sm: "block" },
-            textDecoration: "none", // Remove text decoration
-          }}
-        >
-          <Link
-            to="/lyrics"
-            style={{ color: "white", textDecoration: "none" }}
-          >
-            MUIs
-          </Link>
-        </Typography>
+      <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="fixed">
+          <Toolbar>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              sx={{ mr: 0 }}
+            >
+              {/* <MenuIcon /> */}
+            </IconButton>
+            <Typography
+              variant="h6"
+              noWrap
+              component="div"
+              color="white"
+              sx={{
+                flexGrow: 1,
+                display: { xs: "block", sm: "block" },
+                textDecoration: "none", // Remove text decoration
+              }}
+            >
+              <Link
+                to="/lyrics"
+                style={{ color: "white", textDecoration: "none" }}
+              >
+                MUIs
+              </Link>
+            </Typography>
 
-        <Search>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ "aria-label": "search" }}
-            value={searchQuery}
-            onChange={handleSearch}
-          />
-        </Search>
-      </Toolbar>
-    </AppBar>
-  </Box>
-  <TagList
-          tags={tags}
-          selectedTags={selectedTags}
-          onSelectTag={handleTagSelect}
-        />
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ "aria-label": "search" }}
+                value={searchQuery}
+                onChange={handleSearch}
+              />
+            </Search>
+          </Toolbar>
+        </AppBar>
+      </Box>
+      <TagList
+        tags={tags}
+        selectedTags={selectedTags}
+        onSelectTag={handleTagSelect}
+      />
       <LyricsListContainer>
-      <Typography
-        variant="h4"
-        component="h2"
-        style={{ marginBottom: "20px" }}
-      >
-        Songs by {artistName}
-      </Typography>
-      {filteredSongsWithSearchAndTags.map((song) => (
-        <LyricsLink to={`/lyric/${song.id}`} key={song.id}>
-          <div>
-            <LyricsTitle variant="h5" component="h3">
-              {song.title}
-            </LyricsTitle>
-            <LyricsTags>Tags: {song.tags.join(", ")}</LyricsTags>
-          </div>
-        </LyricsLink>
-      ))}
-    </LyricsListContainer>
+        <Typography
+          variant="h4"
+          component="h2"
+          style={{ marginBottom: "20px" }}
+        >
+          Songs by {artistName}
+        </Typography>
+        {filteredSongsWithSearchAndTags.map((song) => (
+          <LyricsLink to={`/lyric/${song.id}`} key={song.id}>
+            <div>
+              <LyricsTitle variant="h5" component="h3">
+                {song.title}
+              </LyricsTitle>
+              <LyricsTags>Tags: {song.tags.join(", ")}</LyricsTags>
+            </div>
+          </LyricsLink>
+        ))}
+      </LyricsListContainer>
     </div>
-    
   );
 };
 
+const HamburgerMenu = styled("div")(({ isOpen }) => ({
+  display: isOpen ? "block" : "none",
+  // Add your styles for the hamburger menu here
+}));
 
 const App = () => {
   const [selectedTags, setSelectedTags] = useState([]);
@@ -245,7 +251,11 @@ const App = () => {
   const location = useLocation();
   const isArtistSongsPage = location.pathname.includes("/artist/");
   const isLyricsPage = location.pathname.includes("lyrics");
-  
+  const [isMenuOpen, setMenuOpen] = useState(false);
+
+  const handleMenuToggle = () => {
+    setMenuOpen(!isMenuOpen);
+  };
 
   const tags = [
     "Pop",
@@ -345,36 +355,42 @@ const App = () => {
             </Typography>
 
             <form onSubmit={handleSearchSubmit}>
-          <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ "aria-label": "search" }}
-                value={searchQuery}
-                onChange={handleSearch}
-              />
-            </Search>
+              <Search>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Search…"
+                  inputProps={{ "aria-label": "search" }}
+                  value={searchQuery}
+                  onChange={handleSearch}
+                />
+              </Search>
             </form>
           </Toolbar>
         </AppBar>
       </Box>
       <div className="app-container" style={{ overflow: "hidden" }}>
-      
-      {isLyricsPage && (
-  !isArtistSongsPage && (
-    <TagList
-      tags={tags}
-      selectedTags={selectedTags}
-      onSelectTag={handleTagSelect}
-    />
-  )
-)}
-
+        {isLyricsPage && !isArtistSongsPage && (
+          <div style={{ marginTop: 10 }}>
+            <button style={{ border: 0 }} onClick={handleMenuToggle}>
+              <MenuIcon />
+            </button>
+            <HamburgerMenu isOpen={isMenuOpen}>
+              <TagList
+                tags={tags}
+                selectedTags={selectedTags}
+                onSelectTag={handleTagSelect}
+              />
+            </HamburgerMenu>
+          </div>
+        )}
 
         <Routes>
-          <Route path="/lyric/:id" element={<LyricsPage lyrics={lyrics} showTags={false} />} />
+          <Route
+            path="/lyric/:id"
+            element={<LyricsPage lyrics={lyrics} showTags={false} />}
+          />
           <Route
             path="/lyrics"
             element={<LyricsList lyrics={filteredSearch} showTags={true} />}
@@ -396,7 +412,8 @@ const App = () => {
             state={{ songs: lyrics }}
           />
         </Routes>
-      </div></>
+      </div>
+    </>
   );
 };
 
