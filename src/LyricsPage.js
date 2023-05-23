@@ -29,7 +29,8 @@ const LyricsTags = styled(Typography)({
 
 const LyricsContent = styled("div")({
   marginTop: "20px",
-  lineHeight: "1.5",
+  lineHeight: "1",
+  
   backgroundColor: "#ffffff",
   borderRadius: "8px",
   padding: "20px",
@@ -78,7 +79,7 @@ const LyricsPage = ({ lyrics }) => {
       <LyricsTags>Tags: {lyric.tags.join(", ")}</LyricsTags>
       <LyricsContent>
         {lyric.content.split("\n").map((line, index) => (
-          <LyricsLine key={index}>{line}</LyricsLine>
+          <LyricsLine style={{fontSize: "11px",}} key={index}>{line}</LyricsLine>
         ))}
       </LyricsContent>
     </LyricsPageContainer>
