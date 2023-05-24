@@ -26,17 +26,16 @@ const LyricsLink = styled(Link)(({ theme }) => ({
 }));
 
 const LyricsTitle = styled(Typography)({
-  marginBottom: "2px",
-  fontSize: "14px",
+  marginBottom: "4px",
+  fontSize: "17px",
   color: "black",
-  fontStyle: "bold",
 });
 
-const LyricsTags = styled(Typography)({
-  marginTop: "0px",
-  fontSize: "10px",
-  color: ({ theme }) => theme.palette.text.secondary,
-});
+// const LyricsTags = styled(Typography)({
+//   marginTop: "0px",
+//   fontSize: "10px",
+//   color: ({ theme }) => theme.palette.text.secondary,
+// });
 
 const LyricsID = styled(Typography)({
   position: "absolute",
@@ -46,7 +45,7 @@ const LyricsID = styled(Typography)({
   marginLeft: "-10px",
   marginTop: "-10px",
   marginBottom: "-10px",
-  height: "80px",
+  height: "60px",
   width: "40px",
   WebkitBorderBottomLeftRadius: "5px",
   borderTopLeftRadius: "5px",
@@ -63,11 +62,11 @@ const LyricsContent = styled("div")({
 const LyricsList = ({ lyrics }) => {
   return (
     <LyricsListContainer  >
-      <Typography variant="h4" component="h2" style={{ marginBottom: "20px" }}>
+      {/* <Typography variant="h4" component="h2" style={{ marginBottom: "20px" }}>
         Filtered Lyrics:
-      </Typography>
+      </Typography> */}
       {lyrics.map((lyric) => (
-        <LyricsLink style={{height:"60px",}} to={`/lyric/${lyric.id}`} key={lyric.id}>
+        <LyricsLink style={{height:"40px",}} to={`/lyric/${lyric.id}`} key={lyric.id}>
           <div style={{ position: "relative" }}>
             <LyricsID variant="body1" component="span">
               {lyric.id}
@@ -76,7 +75,7 @@ const LyricsList = ({ lyrics }) => {
               <LyricsTitle variant="h5" component="h3">
                 {lyric.title}
               </LyricsTitle>
-              <LyricsTags>Tags: {lyric.tags.join(", ")}</LyricsTags>
+              {/* <LyricsTags>Tags: {lyric.tags.join(", ")}</LyricsTags> */}
               <Typography style={{fontSize:"11px"}}>{lyric.content.split("\n")[0]}</Typography>
             </LyricsContent>
           </div>
