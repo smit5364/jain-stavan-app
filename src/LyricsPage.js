@@ -85,7 +85,7 @@ const LyricsPage = ({ lyrics }) => {
 
       {/* <LyricsTags>Tags: {lyric.tags.join(", ")}</LyricsTags> */}
       <LyricsContent>
-        {lyric.content.map((line, index) => (
+        {lyric.content.split("\n").map((line, index) => (
           <LyricsLine style={{ fontSize: "17px" }} key={index}>
             {line}
           </LyricsLine>
