@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import Typography from "@mui/material/Typography";
 
 const LyricsPageContainer = styled("div")({
-  padding: "20px",
+  padding: "10px",
 });
 
 const LyricsTitle = styled(Typography)({
@@ -53,7 +53,7 @@ const LyricsPage = ({ lyrics }) => {
           lineHeight: "1.5",
           backgroundColor: "#ffffff",
           borderRadius: "8px",
-          padding: "20px",
+          padding: "10px",
           textAlign: "center",
         }}
       >
@@ -85,8 +85,8 @@ const LyricsPage = ({ lyrics }) => {
 
       {/* <LyricsTags>Tags: {lyric.tags.join(", ")}</LyricsTags> */}
       <LyricsContent>
-        {lyric.content.split("\n").map((line, index) => (
-          <LyricsLine style={{ fontSize: "14px" }} key={index}>
+        {lyric.content.map((line, index) => (
+          <LyricsLine style={{ fontSize: "17px" }} key={index}>
             {line}
           </LyricsLine>
         ))}
