@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import { lyrics } from "./data.js";
 import TagList from "./TagList";
 import LyricsList from "./LyricsList";
 import LyricsPage from "./LyricsPage";
@@ -14,6 +13,10 @@ import SearchIcon from "@mui/icons-material/Search";
 import Fab from "@mui/material/Fab";
 import MenuIcon from "@mui/icons-material/Menu";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import firebase from "firebase/compat/app";
+
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
 
 import {
   BrowserRouter as Router,
@@ -25,6 +28,22 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
+import { Public } from "@mui/icons-material";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAbYromvE1yC-8NSJslfh76nG08qKbMXdk",
+  authDomain: "jain-stavan-86cb6.firebaseapp.com",
+  databaseURL: "https://jain-stavan-86cb6-default-rtdb.firebaseio.com",
+  projectId: "jain-stavan-86cb6",
+  storageBucket: "jain-stavan-86cb6.appspot.com",
+  messagingSenderId: "285813640279",
+  appId: "1:285813640279:web:ab619d720373a0369b6712",
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore();
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -83,8 +102,8 @@ const LyricsLink = styled(Link)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   alignItems: "flex-start",
-  marginBottom: "20px",
-  padding: "20px",
+  marginBottom: "6px",
+  padding: "10px",
   borderRadius: "8px",
   textDecoration: "none",
   transition: "background-color 0.3s ease",
@@ -96,47 +115,83 @@ const LyricsLink = styled(Link)(({ theme }) => ({
 }));
 
 const LyricsTitle = styled(Typography)({
-  marginBottom: "10px",
-  fontSize: "24px",
-  color: "inherit",
+  marginBottom: "2px",
+  fontSize: "14px",
+  color: "black",
+  fontStyle: "bold",
 });
 
 const LyricsTags = styled(Typography)({
-  marginTop: "5px",
-  fontSize: "14px",
+  marginTop: "0px",
+  fontSize: "10px",
   color: ({ theme }) => theme.palette.text.secondary,
+});
+
+const LyricsID = styled(Typography)({
+  position: "absolute",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  marginLeft: "-10px",
+  marginTop: "-10px",
+  marginBottom: "-10px",
+  height: "80px",
+  width: "40px",
+  WebkitBorderBottomLeftRadius: "5px",
+  borderTopLeftRadius: "5px",
+  backgroundColor: "#F50057",
+  color: "#FFFFFF",
+  zIndex: 1,
+});
+
+
+const LyricsContent = styled("div")({
+  marginLeft: "45px",
 });
 
 const ArtistSongsPage = ({}) => {
   const { artistName } = useParams();
+  const [lyrics, setLyrics] = useState([]);
   const artistSongs = lyrics;
 
   console.log("Artist:", artistName);
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
+  const [tags, setTags] = useState([]);
 
-  if (!artistSongs || artistSongs.length === 0) {
-    return (
-      <div className="lyrics-page">
-        No songs found for the artist {artistName}.
-      </div>
-    );
-  }
 
-  const tags = [
-    "Pop",
-    "Rock",
-    "Rap",
-    "Love",
-    "Dance",
-    "Summer",
-    "Empowerment",
-    "Urban",
-  ];
+  useEffect(() => {
+    const fetchTags = async () => {
+      try {
+        const snapshot = await db.collection("tags").get();
+        const fetchedTags = snapshot.docs.map((doc) => doc.data().name);
+        setTags(fetchedTags);
+      } catch (error) {
+        console.error("Error fetching tags:", error);
+      }
+    };
+
+    fetchTags();
+  }, []);
+
+  useEffect(() => {
+    const fetchLyrics = async () => {
+      try {
+        const lyricsRef = db.collection("lyrics");
+        const snapshot = await lyricsRef.get();
+        const fetchedLyrics = snapshot.docs.map((doc) => doc.data());
+        setLyrics(fetchedLyrics);
+      } catch (error) {
+        console.error("Error fetching lyrics:", error);
+      }
+    };
+
+    fetchLyrics();
+  }, []);
 
   const filteredSongsByArtist = artistSongs.filter(
-    (song) => song.artist.toLowerCase() === artistName.toLowerCase()
+    (lyrics) => lyrics.artist.toLowerCase() === artistName.toLowerCase()
   );
 
   const handleSongClick = (songId) => {
@@ -215,23 +270,25 @@ const ArtistSongsPage = ({}) => {
         selectedTags={selectedTags}
         onSelectTag={handleTagSelect}
       />
-      <LyricsListContainer>
-        <Typography
-          variant="h4"
-          component="h2"
-          style={{ marginBottom: "20px" }}
-        >
+      <LyricsListContainer  >
+      <Typography variant="h4" component="h2" style={{ marginBottom: "20px" }}>
           Songs by {artistName}
         </Typography>
-        {filteredSongsWithSearchAndTags.map((song) => (
-          <LyricsLink to={`/lyric/${song.id}`} key={song.id}>
-            <div>
+        {filteredSongsWithSearchAndTags.map((lyrics) => (
+          <LyricsLink style={{height:"60px",}} to={`/lyric/${lyrics.id}`} key={lyrics.id}>
+          <div style={{ position: "relative" }}>
+            <LyricsID variant="body1" component="span">
+              {lyrics.id}
+            </LyricsID>
+            <LyricsContent>
               <LyricsTitle variant="h5" component="h3">
-                {song.title}
+                {lyrics.title}
               </LyricsTitle>
-              <LyricsTags>Tags: {song.tags.join(", ")}</LyricsTags>
-            </div>
-          </LyricsLink>
+              <LyricsTags>Tags: {lyrics.tags.join(", ")}</LyricsTags>
+              <Typography style={{fontSize:"11px"}}>{lyrics.content.split("\n")[0]}</Typography>
+            </LyricsContent>
+          </div>
+        </LyricsLink>
         ))}
       </LyricsListContainer>
     </div>
@@ -244,39 +301,42 @@ const HamburgerMenu = styled("div")(({ isOpen }) => ({
 }));
 
 const App = () => {
-  const [selectedTags, setSelectedTags] = useState([]);
-  const [filteredLyrics, setFilteredLyrics] = useState([]);
+  const [filterData, setFilterData] = useState({
+    selectedTags: [],
+    filteredLyrics: [],
+  });
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
   const isArtistSongsPage = location.pathname.includes("/artist/");
   const isLyricsPage = location.pathname.includes("lyrics");
   const [isMenuOpen, setMenuOpen] = useState(false);
+  const [lyrics, setLyrics] = useState([]);
+  const [tags, setTags] = useState([]);
 
-  const handleMenuToggle = () => {
-    setMenuOpen(!isMenuOpen);
-  };
+  const { selectedTags, filteredLyrics } = filterData;
 
-  const tags = [
-    "Pop",
-    "Rock",
-    "Rap",
-    "Love",
-    "Dance",
-    "Summer",
-    "Empowerment",
-    "Urban",
-  ];
+  useEffect(() => {
+    const fetchLyrics = async () => {
+      try {
+        const lyricsRef = db.collection("lyrics");
+        const snapshot = await lyricsRef.get();
+        const fetchedLyrics = snapshot.docs.map((doc) => doc.data());
+        setLyrics(fetchedLyrics);
+      } catch (error) {
+        console.error("Error fetching lyrics:", error);
+      }
+    };
+
+    fetchLyrics();
+  }, []);
 
   useEffect(() => {
     const filtered = lyrics.filter((lyric) =>
       selectedTags.every((selectedTag) => lyric.tags.includes(selectedTag))
     );
-    setFilteredLyrics(filtered);
-  }, [selectedTags]);
 
-  useEffect(() => {
-    const filtered = filteredLyrics.filter(
+    const filteredSearch = filtered.filter(
       (lyric) =>
         lyric.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         lyric.tags.some((tag) =>
@@ -284,42 +344,90 @@ const App = () => {
         ) ||
         lyric.content.toLowerCase().includes(searchQuery.toLowerCase())
     );
-  }, [searchQuery]);
 
-  const handleSearch = (event) => {
-    setSearchQuery(event.target.value);
-  };
+    setFilterData((prevFilterData) => ({
+      ...prevFilterData,
+      filteredLyrics: filteredSearch,
+    }));
+  }, [lyrics, selectedTags, searchQuery]);
 
-  const handleSearchSubmit = (event) => {
-    event.preventDefault();
-    navigate(`/lyrics?search=${encodeURIComponent(searchQuery)}`);
-  };
+  const handleMenuToggle = useCallback(() => {
+    setMenuOpen((prevMenuOpen) => !prevMenuOpen);
+  }, []);
 
-  // Handle initial search query from the URL
   useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    const search = queryParams.get("search") || "";
-    setSearchQuery(search);
-  }, [location.search]);
+    const fetchTags = async () => {
+      try {
+        const snapshot = await db.collection("tags").get();
+        const fetchedTags = snapshot.docs.map((doc) => doc.data().name);
+        setTags(fetchedTags);
+      } catch (error) {
+        console.error("Error fetching tags:", error);
+      }
+    };
 
-  const handleTagSelect = (tag) => {
-    if (selectedTags.includes(tag)) {
-      setSelectedTags(
-        selectedTags.filter((selectedTag) => selectedTag !== tag)
-      );
-    } else {
-      setSelectedTags([...selectedTags, tag]);
-    }
-  };
+    fetchTags();
+  }, []);
 
-  const filteredSearch = filteredLyrics.filter(
-    (lyric) =>
-      lyric.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      lyric.tags.some((tag) =>
-        tag.toLowerCase().includes(searchQuery.toLowerCase())
-      ) ||
-      lyric.content.toLowerCase().includes(searchQuery.toLowerCase())
+  const handleSearch = useCallback((event) => {
+    setSearchQuery(event.target.value);
+  }, []);
+
+  const handleSearchSubmit = useCallback(
+    (event) => {
+      event.preventDefault();
+      navigate(`/lyrics?search=${encodeURIComponent(searchQuery)}`);
+    },
+    [navigate, searchQuery]
   );
+
+  const handleTagSelect = useCallback(
+    (tag) => {
+      setFilterData((prevFilterData) => {
+        const { selectedTags: prevSelectedTags } = prevFilterData;
+        if (prevSelectedTags.includes(tag)) {
+          return {
+            ...prevFilterData,
+            selectedTags: prevSelectedTags.filter(
+              (selectedTag) => selectedTag !== tag
+            ),
+          };
+        } else {
+          return {
+            ...prevFilterData,
+            selectedTags: [...prevSelectedTags, tag],
+          };
+        }
+      });
+    },
+    []
+  );
+
+  const handleLogoClick = useCallback(() => {
+    setFilterData((prevFilterData) => ({
+      ...prevFilterData,
+      selectedTags: [],
+    }));
+    setSearchQuery("");
+  }, []);
+
+  let routesElement;
+  if (isLyricsPage && !isArtistSongsPage) {
+    routesElement = (
+      <div style={{ marginTop: 10 }}>
+        <button style={{ border: 0 }} onClick={handleMenuToggle}>
+          <MenuIcon />
+        </button>
+        <HamburgerMenu isOpen={isMenuOpen}>
+          <TagList
+            tags={tags}
+            selectedTags={selectedTags}
+            onSelectTag={handleTagSelect}
+          />
+        </HamburgerMenu>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -343,11 +451,12 @@ const App = () => {
               sx={{
                 flexGrow: 1,
                 display: { xs: "block", sm: "block" },
-                textDecoration: "none", // Remove text decoration
+                textDecoration: "none",
               }}
             >
               <Link
                 to="/lyrics"
+                onClick={handleLogoClick}
                 style={{ color: "white", textDecoration: "none" }}
               >
                 MUI
@@ -371,20 +480,7 @@ const App = () => {
         </AppBar>
       </Box>
       <div className="app-container" style={{ overflow: "hidden" }}>
-        {isLyricsPage && !isArtistSongsPage && (
-          <div style={{ marginTop: 10 }}>
-            <button style={{ border: 0 }} onClick={handleMenuToggle}>
-              <MenuIcon />
-            </button>
-            <HamburgerMenu isOpen={isMenuOpen}>
-              <TagList
-                tags={tags}
-                selectedTags={selectedTags}
-                onSelectTag={handleTagSelect}
-              />
-            </HamburgerMenu>
-          </div>
-        )}
+        {routesElement}
 
         <Routes>
           <Route
@@ -393,22 +489,12 @@ const App = () => {
           />
           <Route
             path="/lyrics"
-            element={<LyricsList lyrics={filteredSearch} showTags={true} />}
+            element={<LyricsList lyrics={filteredLyrics} showTags={true} />}
           />
-          <Route
-            path="/"
-            element={
-              selectedTags.length ? (
-                <Navigate to="/lyrics" />
-              ) : (
-                <Navigate to="/lyrics" />
-              )
-            }
-          />
+          <Route path="/" element={<Navigate to="/lyrics" />} />
           <Route
             path="/artist/:artistName"
             element={<ArtistSongsPage />}
-            /* Pass the songs data as state */
             state={{ songs: lyrics }}
           />
         </Routes>
@@ -416,5 +502,7 @@ const App = () => {
     </>
   );
 };
+
+
 
 export default App;

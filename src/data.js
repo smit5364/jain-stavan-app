@@ -1,16 +1,15 @@
-export const lyrics = [  
-    { id: 2, title: 'Song 2', artist: 'Artist 2', tags: ['Rock'], content: '|| વીતરાગ તુજ પાયે પડી ગીતો || \n વીતરાગ તુજ પાયે પડી હુ કરુ વિનંતિ એટલી  \n સાધુ નો વેશ કયારે નર મંગુ પ્રભુ બસ એટલુ \n કુમકુમ તના તે ચાટડા કેસર તના તે સાથિયા \n  \n  રાજોહરન ક્યારે મેલ મંગુ પ્રભુ બસ એટલુ \n વિરતી ધર નો વેશ પ્યારો પ્યારો લગ રે \n સંસારી નો સંગ ખારો ખરો લગ રે \n રાજોહરન મેલાવા ને હોય મન મારુ લોભાયુ \n ગુરુકુલ માં વસવાને કાજે દિલ મારુ લાલચ્યુ \n મહાવીર તારો માર્ગ કામગારો લગે રે\nસંસારી નો સંગ ખારો ખરો લગ રે\nવિરતી ધર નો વેશ પ્યારો પ્યારો લગ રે\nએક મનોરથ એવો છે વેષ શ્રમણ નો લેવો ચે\nઅંતર ની એ પ્યાસ છે સૈયમ ની અભિલાષ ચે\nમારા જીવન નો એકજ સાર સૈયમ લાય કરવો ઉદ્ધાર\nવીર પ્રભુ નો અંશ પુરુષ ગુરુ ગૌતમ નુ વંશ પુરુષ\nપતિત પાવન પ્રભુજી ઉગારો રત્નત્રયી નો હુ યાચક તારો\nકયારે માલશે મુજને નિર્ગ્રંથ પંથ ક્યારે થાશે મારા ભવ નો રે કીડી\nક્યારે બનેશ હુ વૈરાગ્યવંત ક્યારે થાશે મારા ભવ નો રે કીડી\nલગી રે લગી રે લગી રે સૈયમ ની લગન લગી\nજાગી રે જાગી રે સૈયામ ની આગ જાગી\nત્યાગી રે ત્યાગી રે ત્યાગી રે મારે બનવુ છે ત્યાગી\nઘેલુ લગ્યુ મુજને હુ તારા પંથે ચાલુ\nતારા પંથે ચલી હુ કર્મો સગલા બાલુ\nદેવો પણ ઝાંખે રે વંદે રે જીવ જીવન ને\nલગની લગી છે અગ્નિ જાગી છે\nસૈયમ જીવન ની પ્રભુ\nસાધના ના પંથે મારા જીવો પમર ક્યારે જાય\nઆજ મારા મન મા જાગે ચે અરુધો અંતર્નાદ\nવેહલી વેહલી માલજો રે મુજને મુક્તિ ની મંઝિલ !!\nમારા જેવો લોકો ફક્ત સુખ ના સાધન માંગે છે\nને દુઃખ ની ચેતા ભાગે છે વિરલા કોઈ નિકાળે છે\nજે સુખ સમગરી ત્યાગે છે ને કષ્ટ કસૌટી માંગે છે\nઆએ જગ ની મોહ માયા થી મારી મુક્તિ કયારે થાય\nજ મારા મન મા જાગે છે અરુધો અંતર્નાદ\nવેહલી વેહલી માલજો મુજને મુક્તિ ની મંઝિલ!!\nસિદ્ધિ માટે ગાવી પડે સાધના ની સરગમ\nઆખ્રે તો લિધુ સૈયમ સ્વામી એ ભી સ્વયમ\nકે સૈયમ ક્યારે માલશે\nક્યારે ક્યારે માલશે\nમુજને ક્યારે માલશે\nસૈયમ ક્યારે માલશે\nજો સુખ પાઉ વીર વચન મેં\nવો સુખ નહીં અમીરે હું\nમન લાગો મેરો યાર વિરતી મેં\nમન લાગો મેરો યાર વિરતી મેં\nધન્ય સમાજ લુ\nખુદ કે જીવન કો\nજિનશાસન કી ફકીરી મેં\nમન લાગો મેરો યાર વિરતી મેં\nમાલજો રે માને વેષ શ્રમણ નો માલજો\nઆથ પ્રહર ની સાધના કાજે\nવેહલી પરોઢે હુ જાગુ\nશ્વાસો લેવા માતે પંન હુ\nગુરુ ની આજ્ઞા માંગુ\nપ્રભુજી મારો સાદ આજે સંભાલજો\nમાલજો રે માલજો વેષ શ્રમણ નો માલજો\nમારે બનવુ અનાગાર મારે બનવુ અનાગાર\nમારે તરવુ સંસાર મારે બનવુ અનાગાર\nપ્રભુ પંથ ને પામી કરું હુ આતમ ને ઉજમાલ\nરુ ચરણ ગ્રહી ને મારે થાવુ છે ભવપાર\nમાનવ જીવન નુસાર મારે બનવુ અનાગાર\nમારે બનવુ અનાગર.....\nસૈયમ સૈય્યમ સૈયમ સૈય્યમ\nમારે લેવો સૈયમ' },
-    { id: 3, title: 'Song Smit 3', artist: 'Artist 2', tags: ['Rap','Rock'], content: 'Lyrics Song 3' },
-    { id: 4, title: 'Song 4', artist: 'Artist 4', tags: ['Rap','Pop'], content: 'Lyrics for Song 4' },
-    { id: 5, title: 'Song 5', artist: 'Artist 5', tags: ['Rap'], content: 'Lyrics for Song 5' },
-    { id: 6, title: 'Love Song', artist: 'smit', tags: ['Pop', 'Love'], content: 'Im lost in your eyes, cant find my way back home' },
-    { id: 7, title: 'Dance All Night', artist: 'sneh', tags: ['Pop', 'Dance'], content: 'Lets dance all night, until the morning light' },
-    { id: 8, title: 'Sunset Dreams', artist: 'Artist 8', tags: ['Pop', 'Summer'], content: 'Underneath the golden sky, \n we chase our dreams tonight' },
-    { id: 9, title: 'Break the Chains', artist: 'Artist 9', tags: ['Rock', 'Empowerment'], content: 'Break the chains that bind, rise up and take your stand' },
-    { id: 10, title: 'City Streets', artist: 'smit', tags: ['Rock', 'Urban'], content: 'In the city streets, where dreams and nightmares meet' },
-    { id: 11, title: 'Rhythm and Flow', artist: 'Artist 11', tags: ['Rap', 'Groove'], content: 'Feel the rhythm, let it flow, let your true colors show' },
-    { id: 12, title: 'Unstoppable', artist: 'smit', tags: ['Rap', 'Motivation'], content: 'Im unstoppable, watch me rise, I wont be compromised' },
-    { id: 13, title: 'Serenade', artist: 'Artist 13', tags: ['Pop', 'Romance'], content: 'In the moonlighs gentle glow, I sing this serenade for you' },
-    { id: 14, title: 'Freedom Song', artist: 'Artist 14', tags: ['Rock', 'Freedom'], content: 'Well sing the freedom song, together we are strong' },
-    { id: 15, title: 'Rhyme Master', artist: 'Artist 15', tags: ['Rap', 'Skill'], content: 'Im the rhyme master, words flow faster, Im the ultimate disaster' }
-  ];
+import { firestore } from './firebase';
+
+export const lyrics = async () => {
+  try {
+    const querySnapshot = await firestore.collection('lyrics').get();
+    const lyrics = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return lyrics;
+  } catch (error) {
+    console.error('Error fetching lyrics:', error);
+    return [];
+  }
+};

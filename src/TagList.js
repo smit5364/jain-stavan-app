@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
+import { firestore } from "./firebase";
 
 const TagButton = styled("button")(({ theme, selected }) => ({
   marginRight: "8px",
@@ -23,13 +24,8 @@ const TagList = ({ tags, selectedTags, onSelectTag }) => {
   return (
     <div style={{ margin: "10px 0" }}>
       {tags.map((tag, index) => (
-        <TagButton
-          key={index}
-          selected={selectedTags.includes(tag)}
-          onClick={() => onSelectTag(tag)}
-        >
-          {tag}
-        </TagButton>
+        <TagButton selected={selectedTags.includes(tag)}
+        onClick={() => onSelectTag(tag)} key={index}>{tag}</TagButton>
       ))}
     </div>
   );
