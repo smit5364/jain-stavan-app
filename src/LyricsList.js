@@ -60,13 +60,14 @@ const LyricsContent = styled("div")({
 });
 
 const LyricsList = ({ lyrics }) => {
+  // Sort the lyrics array in ascending order based on the numbering property
+  const sortedLyrics = lyrics.sort((a, b) => a.numbering - b.numbering);
+
   return (
-    <LyricsListContainer  >
-      {/* <Typography variant="h4" component="h2" style={{ marginBottom: "20px" }}>
-        Filtered Lyrics:
-      </Typography> */}
-      {lyrics.map((lyric) => (
-        <LyricsLink style={{height:"40px",}} to={`/lyric/${lyric.id}`} key={lyric.id}>
+    <LyricsListContainer>
+      {/* Your other JSX code */}
+      {sortedLyrics.map((lyric) => (
+        <LyricsLink style={{ height: "40px" }} to={`/lyric/${lyric.id}`} key={lyric.id}>
           <div style={{ position: "relative" }}>
             <LyricsID variant="body1" component="span">
               {lyric.numbering}

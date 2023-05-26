@@ -135,7 +135,7 @@ const LyricsID = styled(Typography)({
   marginLeft: "-10px",
   marginTop: "-10px",
   marginBottom: "-10px",
-  height: "80px",
+  height: "60px",
   width: "40px",
   WebkitBorderBottomLeftRadius: "5px",
   borderTopLeftRadius: "5px",
@@ -180,7 +180,10 @@ const ArtistSongsPage = ({}) => {
       try {
         const lyricsRef = db.collection("lyrics");
         const snapshot = await lyricsRef.get();
-        const fetchedLyrics = snapshot.docs.map((doc) => doc.data());
+        const fetchedLyrics = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
         setLyrics(fetchedLyrics);
       } catch (error) {
         console.error("Error fetching lyrics:", error);
@@ -247,7 +250,7 @@ const ArtistSongsPage = ({}) => {
                 to="/lyrics"
                 style={{ color: "white", textDecoration: "none" }}
               >
-                MUIs
+                MUI
               </Link>
             </Typography>
 
@@ -275,7 +278,7 @@ const ArtistSongsPage = ({}) => {
           Songs by {artistName}
         </Typography>
         {filteredSongsWithSearchAndTags.map((lyrics) => (
-          <LyricsLink style={{height:"60px",}} to={`/lyric/${lyrics.id}`} key={lyrics.id}>
+          <LyricsLink style={{height:"40px",}} to={`/lyric/${lyrics.id}`} key={lyrics.id}>
           <div style={{ position: "relative" }}>
             <LyricsID variant="body1" component="span">
               {lyrics.numbering}
@@ -284,7 +287,6 @@ const ArtistSongsPage = ({}) => {
               <LyricsTitle variant="h5" component="h3">
                 {lyrics.title}
               </LyricsTitle>
-              <LyricsTags>Tags: {lyrics.tags.join(", ")}</LyricsTags>
               <Typography style={{fontSize:"11px"}}>{lyrics.content.split("\n")[0]}</Typography>
             </LyricsContent>
           </div>
@@ -321,7 +323,10 @@ const App = () => {
       try {
         const lyricsRef = db.collection("lyrics");
         const snapshot = await lyricsRef.get();
-        const fetchedLyrics = snapshot.docs.map((doc) => doc.data());
+        const fetchedLyrics = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
         setLyrics(fetchedLyrics);
       } catch (error) {
         console.error("Error fetching lyrics:", error);

@@ -44,7 +44,7 @@ const LyricsLine = styled("p")({
 
 const LyricsPage = ({ lyrics }) => {
   const { id } = useParams();
-  const lyric = lyrics.find((lyric) => lyric.id === parseInt(id));
+  const lyric = lyrics.find((lyric) => lyric.id === id);
 
   if (!lyric) {
     return (
