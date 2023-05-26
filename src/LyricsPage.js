@@ -86,12 +86,16 @@ const LyricsPage = ({ lyrics }) => {
 
       {/* <LyricsTags>Tags: {lyric.tags.join(", ")}</LyricsTags> */}
       <LyricsContent>
-        {lyric.content.split("\n").map((line, index) => (
-          <LyricsLine style={{ fontSize: "17px" }} key={index}>
-            {line}
-          </LyricsLine>
-        ))}
-      </LyricsContent>
+  {lyric.content.split("\n").map((line, index) => (
+    <LyricsLine style={{ fontSize: "17px" }} >
+    <React.Fragment key={index}>
+      {line}
+      <br />
+    </React.Fragment>
+    </LyricsLine>
+  ))}
+</LyricsContent>
+
     </LyricsPageContainer>
   );
 };
