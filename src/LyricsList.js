@@ -69,7 +69,7 @@ const LyricsList = ({ lyrics }) => {
         <LyricsLink style={{height:"40px",}} to={`/lyric/${lyric.id}`} key={lyric.id}>
           <div style={{ position: "relative" }}>
             <LyricsID variant="body1" component="span">
-              {lyric.id}
+              {lyric.numbering}
             </LyricsID>
             <LyricsContent>
               <LyricsTitle variant="h5" component="h3">

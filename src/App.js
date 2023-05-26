@@ -278,7 +278,7 @@ const ArtistSongsPage = ({}) => {
           <LyricsLink style={{height:"60px",}} to={`/lyric/${lyrics.id}`} key={lyrics.id}>
           <div style={{ position: "relative" }}>
             <LyricsID variant="body1" component="span">
-              {lyrics.id}
+              {lyrics.numbering}
             </LyricsID>
             <LyricsContent>
               <LyricsTitle variant="h5" component="h3">

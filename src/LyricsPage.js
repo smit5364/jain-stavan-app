@@ -34,6 +34,7 @@ const LyricsContent = styled("div")({
   borderRadius: "8px",
   padding: "20px",
   textAlign: "center",
+  userSelect: "none",
 });
 
 const LyricsLine = styled("p")({
