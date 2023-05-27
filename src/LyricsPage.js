@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import { useParams } from "react-router-dom";
@@ -45,6 +45,10 @@ const LyricsLine = styled("p")({
 const LyricsPage = ({ lyrics }) => {
   const { id } = useParams();
   const lyric = lyrics.find((lyric) => lyric.id === id);
+
+  useEffect(() => {
+    window.scrollTo(0, 0); // Scrolls to the top of the page on component mount
+  }, []);
 
   if (!lyric) {
     return (
