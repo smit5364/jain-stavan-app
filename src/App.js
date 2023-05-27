@@ -348,7 +348,7 @@ const App = () => {
           tag.toLowerCase().includes(searchQuery.toLowerCase())
         ) ||
         lyric.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        lyric.numbering.includes(searchQuery)
+        lyric.numbering.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     setFilterData((prevFilterData) => ({
