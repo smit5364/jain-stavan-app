@@ -343,13 +343,14 @@ const App = () => {
 
     const filteredSearch = filtered.filter(
       (lyric) =>
+        lyric.numbering.toString().includes(searchQuery) || // Search by numbering
         lyric.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         lyric.tags.some((tag) =>
           tag.toLowerCase().includes(searchQuery.toLowerCase())
         ) ||
-        lyric.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        lyric.numbering.toLowerCase().includes(searchQuery.toLowerCase())
+        lyric.content.toLowerCase().includes(searchQuery.toLowerCase())
     );
+    
 
     setFilterData((prevFilterData) => ({
       ...prevFilterData,
