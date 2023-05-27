@@ -343,7 +343,6 @@ const App = () => {
 
     const filteredSearch = filtered.filter(
       (lyric) =>
-        lyric.numbering.toString().includes(searchQuery) || // Search by numbering
         lyric.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         lyric.tags.some((tag) =>
           tag.toLowerCase().includes(searchQuery.toLowerCase())
