@@ -24,11 +24,17 @@ const TagList = ({ tags, selectedTags, onSelectTag }) => {
   return (
     <div style={{ margin: "10px 0" }}>
       {tags.map((tag, index) => (
-        <TagButton selected={selectedTags.includes(tag)}
-        onClick={() => onSelectTag(tag)} key={index}>{tag}</TagButton>
+        <TagButton
+          selected={selectedTags.includes(tag)}
+          onClick={() => onSelectTag(tag)}
+          key={index}
+        >
+          {tag.charAt(0).toUpperCase() + tag.slice(1)}
+        </TagButton>
       ))}
     </div>
   );
 };
+
 
 export default TagList;
