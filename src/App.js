@@ -250,7 +250,7 @@ const ArtistSongsPage = ({}) => {
                 to="/lyrics"
                 style={{ color: "white", textDecoration: "none" }}
               >
-                MUI
+                Jain Dhun
               </Link>
             </Typography>
 
@@ -467,7 +467,7 @@ const App = () => {
                 onClick={handleLogoClick}
                 style={{ color: "white", textDecoration: "none" }}
               >
-                MUI
+                Jain Dhun
               </Link>
             </Typography>
 
