@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
-import { firestore } from "./firebase";
 
 const TagButton = styled("button")(({ theme, selected }) => ({
   marginRight: "8px",
