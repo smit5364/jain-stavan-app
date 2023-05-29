@@ -144,7 +144,6 @@ const LyricsID = styled(Typography)({
   zIndex: 1,
 });
 
-
 const LyricsContent = styled("div")({
   marginLeft: "45px",
 });
@@ -159,7 +158,6 @@ const ArtistSongsPage = ({}) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTags, setSelectedTags] = useState([]);
   const [tags, setTags] = useState([]);
-
 
   useEffect(() => {
     const fetchTags = async () => {
@@ -273,24 +271,34 @@ const ArtistSongsPage = ({}) => {
         selectedTags={selectedTags}
         onSelectTag={handleTagSelect}
       />
-      <LyricsListContainer  >
-      <Typography variant="h4" component="h2" style={{ marginBottom: "20px" }}>
+      <LyricsListContainer>
+        <Typography
+          variant="h4"
+          component="h2"
+          style={{ marginBottom: "20px" }}
+        >
           Songs by {artistName}
         </Typography>
         {filteredSongsWithSearchAndTags.map((lyrics) => (
-          <LyricsLink style={{height:"40px",}} to={`/lyric/${lyrics.id}`} key={lyrics.id}>
-          <div style={{ position: "relative" }}>
-            <LyricsID variant="body1" component="span">
-              {lyrics.numbering}
-            </LyricsID>
-            <LyricsContent>
-              <LyricsTitle variant="h5" component="h3">
-                {lyrics.title}
-              </LyricsTitle>
-              <Typography style={{fontSize:"11px"}}>{lyrics.content.split("\n")[0]}</Typography>
-            </LyricsContent>
-          </div>
-        </LyricsLink>
+          <LyricsLink
+            style={{ height: "40px" }}
+            to={`/lyric/${lyrics.id}`}
+            key={lyrics.id}
+          >
+            <div style={{ position: "relative" }}>
+              <LyricsID variant="body1" component="span">
+                {lyrics.numbering}
+              </LyricsID>
+              <LyricsContent>
+                <LyricsTitle variant="h5" component="h3">
+                  {lyrics.title}
+                </LyricsTitle>
+                <Typography style={{ fontSize: "11px" }}>
+                  {lyrics.content.split("\n")[0]}
+                </Typography>
+              </LyricsContent>
+            </div>
+          </LyricsLink>
         ))}
       </LyricsListContainer>
     </div>
@@ -350,8 +358,6 @@ const App = () => {
         ) ||
         lyric.content.toLowerCase().includes(searchQuery.toLowerCase())
     );
-    
-    
 
     setFilterData((prevFilterData) => ({
       ...prevFilterData,
@@ -389,27 +395,24 @@ const App = () => {
     [navigate, searchQuery]
   );
 
-  const handleTagSelect = useCallback(
-    (tag) => {
-      setFilterData((prevFilterData) => {
-        const { selectedTags: prevSelectedTags } = prevFilterData;
-        if (prevSelectedTags.includes(tag)) {
-          return {
-            ...prevFilterData,
-            selectedTags: prevSelectedTags.filter(
-              (selectedTag) => selectedTag !== tag
-            ),
-          };
-        } else {
-          return {
-            ...prevFilterData,
-            selectedTags: [...prevSelectedTags, tag],
-          };
-        }
-      });
-    },
-    []
-  );
+  const handleTagSelect = useCallback((tag) => {
+    setFilterData((prevFilterData) => {
+      const { selectedTags: prevSelectedTags } = prevFilterData;
+      if (prevSelectedTags.includes(tag)) {
+        return {
+          ...prevFilterData,
+          selectedTags: prevSelectedTags.filter(
+            (selectedTag) => selectedTag !== tag
+          ),
+        };
+      } else {
+        return {
+          ...prevFilterData,
+          selectedTags: [...prevSelectedTags, tag],
+        };
+      }
+    });
+  }, []);
 
   const handleLogoClick = useCallback(() => {
     setFilterData((prevFilterData) => ({
@@ -510,7 +513,5 @@ const App = () => {
     </>
   );
 };
-
-
 
 export default App;

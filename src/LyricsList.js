@@ -54,7 +54,6 @@ const LyricsID = styled(Typography)({
   zIndex: 1,
 });
 
-
 const LyricsContent = styled("div")({
   marginLeft: "45px",
 });
@@ -67,7 +66,11 @@ const LyricsList = ({ lyrics }) => {
     <LyricsListContainer>
       {/* Your other JSX code */}
       {sortedLyrics.map((lyric) => (
-        <LyricsLink style={{ height: "40px" }} to={`/lyric/${lyric.id}`} key={lyric.id}>
+        <LyricsLink
+          style={{ height: "40px" }}
+          to={`/lyric/${lyric.id}`}
+          key={lyric.id}
+        >
           <div style={{ position: "relative" }}>
             <LyricsID variant="body1" component="span">
               {lyric.numbering}
@@ -77,7 +80,9 @@ const LyricsList = ({ lyrics }) => {
                 {lyric.title}
               </LyricsTitle>
               {/* <LyricsTags>Tags: {lyric.tags.join(", ")}</LyricsTags> */}
-              <Typography style={{fontSize:"11px"}}>{lyric.content.split("\n")[0]}</Typography>
+              <Typography style={{ fontSize: "11px" }}>
+                {lyric.content.split("\n")[0]}
+              </Typography>
             </LyricsContent>
           </div>
         </LyricsLink>

@@ -35,5 +35,4 @@ const TagList = ({ tags, selectedTags, onSelectTag }) => {
   );
 };
 
-
 export default TagList;
